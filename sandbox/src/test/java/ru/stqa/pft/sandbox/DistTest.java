@@ -18,4 +18,12 @@ public class DistTest {
     Assert.assertTrue(p1.dist(p2) >=0);
   }
 
+  @Test
+  public void testDist2(){
+
+    Point p1 = new Point(2,1);
+    Point p2 = new Point(1,1);
+    //для указанных выше значений;
+    Assert.assertEquals(p1.dist(p2),1.0);
+  }
 }
