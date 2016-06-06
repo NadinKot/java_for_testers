@@ -18,6 +18,10 @@ public class HelperBase {
     wd.findElement(locator).click();
   }
 
+  protected void alert(By locator) {
+    wd.switchTo().alert().accept();
+  }
+
   protected void type(By locator, String text) {
     click(locator);
     wd.findElement(locator).clear();
@@ -32,4 +36,5 @@ public class HelperBase {
       return false;
     }
   }
+
 }

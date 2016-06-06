@@ -32,4 +32,9 @@ public class ContactHelper extends HelperBase{
     type(By.name("address2"),addressData.getSecondAddress());
   }
 
+  public void selectAddress() {click(By.name("selected[]")); }
+
+  public void deleteAddress() { click(By.name("delete"));}
+
+  public void confirmationDeletition() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
 }
