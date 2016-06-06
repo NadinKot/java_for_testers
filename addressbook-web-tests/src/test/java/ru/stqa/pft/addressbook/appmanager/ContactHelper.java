@@ -10,7 +10,6 @@ import ru.stqa.pft.addressbook.model.AddressData;
 public class ContactHelper extends HelperBase{
 
   public ContactHelper(FirefoxDriver wd) {
-
     super(wd);
   }
 
@@ -34,7 +33,5 @@ public class ContactHelper extends HelperBase{
 
   public void selectAddress() {click(By.name("selected[]")); }
 
-  public void deleteAddress() { click(By.name("delete"));}
-
-  public void confirmationDeletition() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
+  public void deleteAddress() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
 }

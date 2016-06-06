@@ -37,4 +37,8 @@ public class HelperBase {
     }
   }
 
+  public void alert() {
+     wd.switchTo().alert().accept();
+     }
+
 }
