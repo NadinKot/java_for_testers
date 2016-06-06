@@ -7,9 +7,9 @@ public class NewAddressCreation extends TestBase {
 
     @Test
     public void NewAddressCreation() {
-        app.addNewAddress();
-        app.fillAddressForm(new AddressData("MyName", "SecondName", "Nick", "MyAddress", "123456", "myname.secondname@e-mail.zz", "test"));
-        app.submitAddressCreation();
-        app.returnToHomePage();
+        app.getContactHelper().addNewAddress();
+        app.getContactHelper().fillAddressForm(new AddressData("MyName", "SecondName", "Nick", "MyAddress", "123456", "myname.secondname@e-mail.zz", "test"));
+        app.getContactHelper().submitAddressCreation();
+        app.getNavigationHelper().returnToHomePage();
     }
 }
