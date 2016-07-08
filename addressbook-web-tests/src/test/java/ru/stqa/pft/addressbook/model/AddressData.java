@@ -7,15 +7,17 @@ public class AddressData {
   private final String address;
   private final String mobile;
   private final String email;
+  private String group;
   private final String secondAddress;
 
-  public AddressData(String firstname, String lastname, String nickname, String address, String mobile, String email, String secondAddress) {
+  public AddressData(String firstname, String lastname, String nickname, String address, String mobile, String email, String group, String secondAddress) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.nickname = nickname;
     this.address = address;
     this.mobile = mobile;
     this.email = email;
+    this.group = group;
     this.secondAddress = secondAddress;
   }
 
@@ -45,5 +47,9 @@ public class AddressData {
 
   public String getSecondAddress() {
     return secondAddress;
+  }
+
+  public String getGroup() {
+    return group;
   }
 }
