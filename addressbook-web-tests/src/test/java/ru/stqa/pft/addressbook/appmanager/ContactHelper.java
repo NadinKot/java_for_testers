@@ -19,6 +19,10 @@ public class ContactHelper extends HelperBase{
     click(By.linkText("add new"));
   }
 
+  public void returnToHomePage() {
+    click(By.linkText("home page"));
+  }
+
   public void submitAddressCreation() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
@@ -47,5 +51,16 @@ public class ContactHelper extends HelperBase{
 
   public void submitAddressModification() {
     click(By.name("update"));
+  }
+
+  public void createNewContact(AddressData addressData, boolean b) {
+    addNewAddress();
+    fillAddressForm(new AddressData("MyName", "SecondName", null, "MyAddress", "123456", "myname.secondname@e-mail.zz", "test1", null),true);
+    submitAddressCreation();
+    returnToHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 }
