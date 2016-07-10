@@ -43,7 +43,9 @@ public class ContactHelper extends HelperBase{
     }
   }
 
-  public void selectAddress() {click(By.name("selected[]")); }
+  public void selectAddress(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
+  }
 
   public void deleteAddress() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
 
@@ -62,5 +64,9 @@ public class ContactHelper extends HelperBase{
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
