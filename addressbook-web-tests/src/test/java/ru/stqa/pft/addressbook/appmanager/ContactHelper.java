@@ -2,9 +2,14 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nadin_Kot on 06.06.2016.
@@ -69,4 +74,16 @@ public class ContactHelper extends HelperBase{
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
+
+  public List<AddressData> getContactList() {
+    List<AddressData> addresses= new ArrayList<AddressData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement element : elements) {
+      String lastName = element.findElement(By.xpath(".//td[2]")).getText();
+      AddressData address = new AddressData(lastName, null, null, null, null, null, null, null);
+      addresses.add(address);
+    }
+    return addresses;
+  }
 }
+
