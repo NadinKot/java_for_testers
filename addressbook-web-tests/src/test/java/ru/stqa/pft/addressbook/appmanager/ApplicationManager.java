@@ -12,11 +12,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApplicationManager {
 
+  //
+
   WebDriver wd;
 
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  /* делегирование GroupHelper, как и в TestBase->ApplicationManager
+  Нет продолжения  = new GroupHelper(wd); т.е. нет инициализации, а есть только декларирование, поскольку ниже мы задаем обращение к конструктору
+   */
   private ContactHelper contactHelper;
   private String browser;
 
@@ -36,6 +41,7 @@ public class ApplicationManager {
 
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
+    /*Ниже идут конструкторы*/
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
@@ -60,4 +66,9 @@ public class ApplicationManager {
   public ContactHelper getContactHelper() {
     return contactHelper;
   }
-}
+
+  public void delay() {
+    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+  }
+  }
+

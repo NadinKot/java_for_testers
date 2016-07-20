@@ -33,8 +33,8 @@ public class ContactHelper extends HelperBase{
   }
 
   public void fillAddressForm(AddressData addressData, boolean creation) {
-    type(By.name("firstname"),addressData.getFirstname());
     type(By.name("lastname"),addressData.getLastname());
+    type(By.name("firstname"),addressData.getFirstname());
     type(By.name("nickname"),addressData.getNickname());
     type(By.name("address"),addressData.getAddress());
     type(By.name("mobile"),addressData.getMobile());
@@ -60,9 +60,9 @@ public class ContactHelper extends HelperBase{
     click(By.name("update"));
   }
 
-  public void createNewContact(AddressData addressData, boolean b) {
+  public void createNewContact(AddressData addressData) {
     addNewAddress();
-    fillAddressForm(new AddressData("MyName", "SecondName", null, "MyAddress", "123456", "myname.secondname@e-mail.zz", "test1", null),true);
+    fillAddressForm(new AddressData("SecondName", "MyName", null, "MyAddress", "123456", "myname.secondname@e-mail.zz", "test1", null),true);
     submitAddressCreation();
     returnToHomePage();
   }
@@ -79,8 +79,9 @@ public class ContactHelper extends HelperBase{
     List<AddressData> addresses= new ArrayList<AddressData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
-      String lastName = element.findElement(By.xpath(".//td[2]")).getText();
-      AddressData address = new AddressData(lastName, null, null, null, null, null, null, null);
+      String lastName = element.findElement(By.xpath(".//td[2]")).getText(); //  .//tr[@name='entry']/td[2]
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      AddressData address = new AddressData(id, lastName, null, null, null, null, null, null, null);
       addresses.add(address);
     }
     return addresses;

@@ -7,13 +7,16 @@ import org.testng.annotations.BeforeMethod;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
 
-
 /**
  * Created by Nadin_Kot on 06.06.2016.
  */
 public class TestBase {
 
   protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  /*Выше происходит делегирование другому классу ApplicationManager, появляется новый объект класса ApplicationManager с типом ApplicationManager.
+  Теперь во вспомогательных методах Объект типа ApplicationManager выполняет некоторое действие арр.___*/
+
+  //Общие методы для всех тестов, Фикстура
 
   @BeforeMethod
   public void setUp() throws Exception {

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Created by Nadin_Kot on 06.06.2016.
  */
+//Базовый класс для всех помошников
 public class HelperBase {
   protected WebDriver wd;
 

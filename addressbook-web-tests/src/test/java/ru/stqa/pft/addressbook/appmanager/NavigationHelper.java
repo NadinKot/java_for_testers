@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
  */
 public class NavigationHelper extends HelperBase{
 
+  //Навигация в рамках страниц
+
   public NavigationHelper(WebDriver wd) {
     super(wd);
   }
