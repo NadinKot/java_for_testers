@@ -12,7 +12,7 @@ public class AddressData {
   private final String secondAddress;
 
   public AddressData(String lastname, String firstname, String nickname, String address, String mobile, String email, String group, String secondAddress) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.lastname = lastname;
     this.firstname = firstname;
     this.nickname = nickname;
@@ -78,8 +78,8 @@ public class AddressData {
   @Override
   public String toString() {
     return "AddressData{" +
-            "id='" + id + '\'' +
-            ", lastname='" + lastname + '\'' +
+            "lastname='" + lastname + '\'' +
+            ", firstname='" + firstname + '\'' +
             '}';
   }
 
@@ -90,15 +90,15 @@ public class AddressData {
 
     AddressData that = (AddressData) o;
 
-    if (id != that.id) return false;
-    return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+    return firstname != null ? firstname.equals(that.firstname) : that.firstname == null;
 
   }
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    int result = lastname != null ? lastname.hashCode() : 0;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     return result;
   }
 }
