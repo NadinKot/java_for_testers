@@ -1,46 +1,63 @@
 package ru.stqa.pft.addressbook.model;
 
 public class AddressData {
-  private int id;
-  private final String lastname;
-  private final String firstname;
-  private final String nickname;
-  private final String address;
-  private final String mobile;
-  private final String email;
-  private final String group;
-  private final String secondAddress;
+  private int id=Integer.MAX_VALUE;
+  private String lastname;
+  private String firstname;
+  private String nickname;
+  private String address;
+  private String mobile;
+  private String email;
+  private String group;
+  private String secondAddress;
 
-  public AddressData(String lastname, String firstname, String nickname, String address, String mobile, String email, String group, String secondAddress) {
-    this.id = Integer.MAX_VALUE;
-    this.lastname = lastname;
-    this.firstname = firstname;
-    this.nickname = nickname;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
-    this.secondAddress = secondAddress;
+  public AddressData withId(int id) {
+    this.id = id;
+    return this;
   }
 
-  public AddressData(int id, String lastname, String firstname, String nickname, String address, String mobile, String email, String group, String secondAddress) {
-    this.id = id;
+  public AddressData withLastname(String lastname) {
     this.lastname = lastname;
+    return this;
+  }
+
+  public AddressData withFirstname(String firstname) {
     this.firstname = firstname;
+    return this;
+  }
+
+  public AddressData withNickname(String nickname) {
     this.nickname = nickname;
+    return this;
+  }
+
+  public AddressData withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public AddressData withMobile(String mobile) {
     this.mobile = mobile;
+    return this;
+  }
+
+  public AddressData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public AddressData withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public AddressData withSecondAddress(String secondAddress) {
     this.secondAddress = secondAddress;
+    return this;
   }
 
   public int getId() {
     return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   public String getLastname() {

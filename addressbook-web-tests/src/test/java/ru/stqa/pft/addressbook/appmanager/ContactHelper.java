@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class ContactHelper extends HelperBase{
     super(wd);
   }
 
-  public void addNewAddress() {
+  public void add() {
     click(By.linkText("add new"));
   }
 
@@ -60,13 +59,28 @@ public class ContactHelper extends HelperBase{
     click(By.name("update"));
   }
 
-  public void createNewContact(AddressData addressData) {
-    addNewAddress();
-    fillAddressForm(new AddressData("SecondName", "MyName", null, "MyAddress", "123456", "myname.secondname@e-mail.zz", "test1", null),true);
+  public void create(AddressData addressData) {
+    add();
+    fillAddressForm(new AddressData()
+            .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress")
+            .withMobile("123456").withEmail("myname.secondname@e-mail.zz").withGroup("test1"),true);
     submitAddressCreation();
     returnToHomePage();
   }
 
+  public void modify(int index, AddressData address) {
+    selectAddress(index);
+    initAddressModification();
+    fillAddressForm(address, false);
+    submitAddressModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectAddress(index);
+    deleteAddress();
+    alert();
+  }
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -75,15 +89,14 @@ public class ContactHelper extends HelperBase{
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<AddressData> getContactList() {
+  public List<AddressData> list() {
     List<AddressData> addresses= new ArrayList<AddressData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText(); //  .//tr[@name='entry']/td[2]
       String firstName = element.findElement(By.xpath(".//td[3]")).getText(); //  .//tr[@name='entry']/td[3]
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      AddressData address = new AddressData(id, lastName, firstName, null, null, null, null, null, null);
-      addresses.add(address);
+      addresses.add(new AddressData().withId(id).withLastname(lastName).withFirstname(firstName));
     }
     return addresses;
   }
