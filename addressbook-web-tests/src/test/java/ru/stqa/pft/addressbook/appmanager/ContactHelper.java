@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Nadin_Kot on 06.06.2016.
@@ -47,8 +49,8 @@ public class ContactHelper extends HelperBase{
     }
   }
 
-  public void selectAddress(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectAddressById(int id) {
+    wd.findElement(By.xpath("//input[@value='"+id+"']")).click(); //cssSelector("input[value'" + id + "']"
   }
 
   public void deleteAddress() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
@@ -68,29 +70,31 @@ public class ContactHelper extends HelperBase{
     returnToHomePage();
   }
 
-  public void modify(int index, AddressData address) {
-    selectAddress(index);
+  public void modify(AddressData address) {
+    selectAddressById(address.getId());
     initAddressModification();
     fillAddressForm(address, false);
     submitAddressModification();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectAddress(index);
+  public void delete(AddressData address) {
+    selectAddressById(address.getId());
     deleteAddress();
     alert();
   }
+
+  /*
   public boolean isThereAContact() {
-    return isElementPresent(By.name("selected[]"));
-  }
+   return isElementPresent(By.name("selected[]"));
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
+  */
 
-  public List<AddressData> list() {
-    List<AddressData> addresses= new ArrayList<AddressData>();
+  public Set<AddressData> all() {
+    Set<AddressData> addresses= new HashSet<AddressData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       String lastName = element.findElement(By.xpath(".//td[2]")).getText(); //  .//tr[@name='entry']/td[2]
@@ -100,5 +104,6 @@ public class ContactHelper extends HelperBase{
     }
     return addresses;
   }
+
 }
 

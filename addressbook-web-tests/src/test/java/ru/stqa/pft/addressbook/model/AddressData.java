@@ -107,6 +107,7 @@ public class AddressData {
 
     AddressData that = (AddressData) o;
 
+    if (id != that.id) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
     return firstname != null ? firstname.equals(that.firstname) : that.firstname == null;
 
@@ -114,7 +115,8 @@ public class AddressData {
 
   @Override
   public int hashCode() {
-    int result = lastname != null ? lastname.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     return result;
   }
