@@ -14,11 +14,11 @@ public class NewAddressCreation extends TestBase {
         app.goTo().homePage();
         Contacts before = app.contact().all();
         AddressData address = new AddressData()
-                .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress")
-                .withMobile("123456").withEmail("myname.secondname@e-mail.zz").withGroup("test1");
+                .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
+                .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1");
         app.contact().create(address);
+        assertThat(app.contact().count(), equalTo(before.size()+1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size()+1));
         assertThat(after, equalTo(
                 before.withAdded(address.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
     }

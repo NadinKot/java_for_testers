@@ -18,8 +18,8 @@ public class DeleteAddressTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().all().size()==0){
       app.contact().create(new AddressData()
-              .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress")
-              .withMobile("123456").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
+              .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
+              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
     }
   }
 
@@ -31,8 +31,8 @@ public class DeleteAddressTests extends TestBase {
     app.contact().delete(deletedAdress);
     //app.getNavigationHelper().returnToHomePage();
     app.delay();
+    assertThat(app.contact().count(), equalTo(before.size()-1));
     Contacts after = app.contact().all();
-    assertThat( after.size(), equalTo(before.size()-1));
     assertThat(after, equalTo(before.without(deletedAdress)));
   }
 

@@ -18,8 +18,8 @@ public class AddressModificationTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().all().size()==0){
       app.contact().create(new AddressData()
-              .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress")
-              .withMobile("123456").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
+              .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
+              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
     }
   }
 
@@ -28,11 +28,11 @@ public class AddressModificationTests extends TestBase {
     Contacts before = app.contact().all();
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData()
-            .withId(modifiedAddress.getId()).withLastname("SecondName").withFirstname("MyName").withNickname("Nick").withAddress("MyAddress")
-            .withMobile("123456").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withSecondAddress("test_second_address");
+            .withId(modifiedAddress.getId()).withLastname("SecondName").withFirstname("MyName").withNickname("Nick").withAddress("MyAddress").withHomePhone("111")
+            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withSecondAddress("test_second_address");
     app.contact().modify(address);
+    assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
   }
 

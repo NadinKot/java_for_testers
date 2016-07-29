@@ -6,10 +6,26 @@ public class AddressData {
   private String firstname;
   private String nickname;
   private String address;
+  private String homePhone;
   private String mobile;
+  private String workPhone;
   private String email;
+  private String email2;
+  private String email3;
   private String group;
   private String secondAddress;
+  private String allPhones;
+  private String allEmails;
+
+  public AddressData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+  public AddressData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
   public AddressData withId(int id) {
     this.id = id;
@@ -36,13 +52,33 @@ public class AddressData {
     return this;
   }
 
+  public AddressData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
   public AddressData withMobile(String mobile) {
     this.mobile = mobile;
     return this;
   }
 
+  public AddressData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
+    return this;
+  }
+
   public AddressData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public AddressData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public AddressData withEmail3(String email3) {
+    this.email3 = email3;
     return this;
   }
 
@@ -76,12 +112,26 @@ public class AddressData {
     return address;
   }
 
+  public String getHomePhone() {
+    return homePhone;
+  }
   public String getMobile() {
     return mobile;
+  }
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   public String getEmail() {
     return email;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
   }
 
   public String getSecondAddress() {
@@ -91,6 +141,16 @@ public class AddressData {
   public String getGroup() {
     return group;
   }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+
 
   @Override
   public String toString() {
