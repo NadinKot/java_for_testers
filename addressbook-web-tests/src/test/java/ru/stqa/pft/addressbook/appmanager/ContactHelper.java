@@ -8,6 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,6 +47,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("email2"),addressData.getEmail2());
     type(By.name("email3"),addressData.getEmail3());
     type(By.name("address2"),addressData.getSecondAddress());
+    attache(By.name("photo"),addressData.getPhoto());
 
     if(creation){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
@@ -72,9 +74,10 @@ public class ContactHelper extends HelperBase{
 
   public void create(AddressData addressData) {
     add();
+    File photo = new File("src/test/resources/manchkin.png");
     fillAddressForm(new AddressData()
             .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"),true);
+            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo),true);
     submitAddressCreation();
     contactCache=null;
     returnToHomePage();
