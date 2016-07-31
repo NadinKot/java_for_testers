@@ -16,6 +16,14 @@ public class AddressData {
   private String secondAddress;
   private String allPhones;
   private String allEmails;
+  private String contactDetails;
+
+
+
+  public AddressData withContactDetails(String contactDetails) {
+    this.contactDetails = contactDetails;
+    return this;
+  }
 
   public AddressData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
@@ -150,6 +158,9 @@ public class AddressData {
     return allPhones;
   }
 
+  public String getContactDetails() {
+    return contactDetails;
+  }
 
 
   @Override

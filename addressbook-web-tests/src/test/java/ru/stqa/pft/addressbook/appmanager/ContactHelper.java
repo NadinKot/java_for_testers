@@ -64,6 +64,8 @@ public class ContactHelper extends HelperBase{
   public void initAddressModification(int id) {click(By.xpath("//input[@value='"+id+"']//..//../td[8]/a/img"));  }
   //public void initAddressModification() {click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));  }
 
+  public void openDetails(int id) {click(By.xpath("//input[@value='"+id+"']//..//../td[7]/a/img"));  }
+
   public void submitAddressModification() {
     click(By.name("update"));
   }
@@ -118,7 +120,8 @@ public class ContactHelper extends HelperBase{
       String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
       String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contactCache.add(new AddressData().withId(id).withLastname(lastName).withFirstname(firstName).withAddress(address).withAllPhones(allPhones).withAllEmails(allEmails));
+      contactCache.add(new AddressData().withId(id).withLastname(lastName).withFirstname(firstName).withAddress(address)
+              .withAllPhones(allPhones).withAllEmails(allEmails));
     }
     return new Contacts(contactCache);
   }
@@ -127,6 +130,7 @@ public class ContactHelper extends HelperBase{
     initAddressModification(contact.getId()); //initContactModificationById(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String nickname = wd.findElement(By.name("nickname")).getAttribute("value");
     String address = wd.findElement(By.name("address")).getAttribute("value");
     String home = wd.findElement(By.name("home")).getAttribute("value");
     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
@@ -134,14 +138,19 @@ public class ContactHelper extends HelperBase{
     String eMail = wd.findElement(By.name("email")).getAttribute("value");
     String eMail2 = wd.findElement(By.name("email2")).getAttribute("value");
     String eMail3 = wd.findElement(By.name("email3")).getAttribute("value");
+    String address2 = wd.findElement(By.name("address2")).getAttribute("value");
     wd.navigate().back();
-    return new AddressData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withAddress(address).withHomePhone(home).withMobile(mobile).withWorkPhone(work).withEmail(eMail).withEmail2(eMail2).withEmail3(eMail3);
+    return new AddressData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withNickname(nickname)
+            .withAddress(address).withHomePhone(home).withMobile(mobile).withWorkPhone(work)
+            .withEmail(eMail).withEmail2(eMail2).withEmail3(eMail3).withSecondAddress(address2);
   }
 
- /*private void initContactModificationById(int id){
-    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
-   //wd.findElement(By.xpath(String.format("input[value='%s']/../../td[8]/a",id))).click();
-  }*/
+  public AddressData infoFromDetails(AddressData contact){
+    openDetails(contact.getId()); //initContactModificationById(contact.getId());
+    String info = wd.findElement(By.xpath(".//div[@id='content']")).getText();
+    wd.navigate().back();
+    return new AddressData().withId(contact.getId()).withContactDetails(info);
+  }
 
 }
 
