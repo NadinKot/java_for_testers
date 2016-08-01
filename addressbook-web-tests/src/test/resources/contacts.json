@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2147483647,
+    "lastname": "SecondName 0",
+    "firstname": "MyName 0",
+    "address": "MyAddress 0",
+    "homePhone": "1112-0",
+    "mobile": "123456-0",
+    "workPhone": "222-0",
+    "email": "myname.secondname0@e-mail.zz"
+  },
+  {
+    "id": 2147483647,
+    "lastname": "SecondName 1",
+    "firstname": "MyName 1",
+    "address": "MyAddress 1",
+    "homePhone": "1112-1",
+    "mobile": "123456-1",
+    "workPhone": "222-1",
+    "email": "myname.secondname1@e-mail.zz"
+  },
+  {
+    "id": 2147483647,
+    "lastname": "SecondName 2",
+    "firstname": "MyName 2",
+    "address": "MyAddress 2",
+    "homePhone": "1112-2",
+    "mobile": "123456-2",
+    "workPhone": "222-2",
+    "email": "myname.secondname2@e-mail.zz"
+  }
+]
