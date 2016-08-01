@@ -41,21 +41,23 @@ public class ContactDataGenerator {
     save(contacts, new File(file));
   }
 
-  private static void save(List<AddressData> contacts, File file) throws IOException {
+  private void save(List<AddressData> contacts, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());
     Writer writer = new FileWriter(file);
     for (AddressData contact : contacts){
-      writer.write(String.format("%s;%s;%s;%s\n", contact.getFirstname(),contact.getLastname(),contact.getAddress(),contact.getMobile()));
+      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),contact.getLastname(),contact.getAddress(),contact.getHomePhone(),
+              contact.getMobile(),contact.getWorkPhone(),contact.getEmail()));
     }
     writer.close();
   }
 
- private static List<AddressData> generateContact(int count) {
+ private List<AddressData> generateContact(int count) {
     List<AddressData> contacts = new ArrayList<AddressData>();
     for (int i = 0; i<count; i++){
       contacts.add(new AddressData().withFirstname(String.format("MyName %s", i))
               .withLastname(String.format("SecondName %s", i)).withAddress(String.format("MyAddress %s", i))
-              .withMobile(String.format("1112-%s", i)));
+              .withHomePhone(String.format("1112-%s", i)).withMobile(String.format("123456-%s", i)).withWorkPhone(String.format("222-%s", i))
+              .withEmail(String.format("myname.secondname%s@e-mail.zz", i)));
     }
     return contacts;
   }

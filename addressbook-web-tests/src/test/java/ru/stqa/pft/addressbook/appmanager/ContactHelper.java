@@ -35,7 +35,7 @@ public class ContactHelper extends HelperBase{
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillAddressForm(AddressData addressData, boolean creation) {
+  public void fillAddressForm(AddressData addressData) {
     type(By.name("lastname"),addressData.getLastname());
     type(By.name("firstname"),addressData.getFirstname());
     type(By.name("nickname"),addressData.getNickname());
@@ -48,13 +48,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("email3"),addressData.getEmail3());
     type(By.name("address2"),addressData.getSecondAddress());
     attache(By.name("photo"),addressData.getPhoto());
-
-    if(creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
-  }
 
   public void selectAddressById(int id) {
     //wd.findElement(By.xpath(String.format("//input[@value=%s", id))).click();
@@ -72,21 +66,21 @@ public class ContactHelper extends HelperBase{
     click(By.name("update"));
   }
 
-  public void create(AddressData addressData) {
+  public void create(AddressData address) {
     add();
     File photo = new File("src/test/resources/manchkin.png");
-    fillAddressForm(new AddressData()
+    fillAddressForm(address);
+    /*fillAddressForm(new AddressData()
             .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo),true);
+            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo),true);*/
     submitAddressCreation();
     contactCache=null;
     returnToHomePage();
   }
 
   public void modify(AddressData address) {
-    //selectAddressById(address.getId());
     initAddressModification(address.getId());
-    fillAddressForm(address, false);
+    fillAddressForm(address);
     submitAddressModification();
     contactCache=null;
     returnToHomePage();
@@ -130,7 +124,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public AddressData infoFromEditForm(AddressData contact){
-    initAddressModification(contact.getId()); //initContactModificationById(contact.getId());
+    initAddressModification(contact.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
     String nickname = wd.findElement(By.name("nickname")).getAttribute("value");
@@ -149,7 +143,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public AddressData infoFromDetails(AddressData contact){
-    openDetails(contact.getId()); //initContactModificationById(contact.getId());
+    openDetails(contact.getId());
     String info = wd.findElement(By.xpath(".//div[@id='content']")).getText();
     wd.navigate().back();
     return new AddressData().withId(contact.getId()).withContactDetails(info);
