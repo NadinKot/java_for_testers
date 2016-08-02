@@ -12,7 +12,7 @@ import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
  */
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser",BrowserType.CHROME));
   /*Выше происходит делегирование другому классу ApplicationManager, появляется новый объект класса ApplicationManager с типом ApplicationManager.
   Теперь во вспомогательных методах Объект типа ApplicationManager выполняет некоторое действие арр.___*/
 
