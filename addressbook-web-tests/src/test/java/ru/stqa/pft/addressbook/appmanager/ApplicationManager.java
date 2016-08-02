@@ -7,7 +7,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -30,7 +29,7 @@ public class ApplicationManager {
   private ContactHelper contactHelper;
   private String browser;
 
-  public ApplicationManager(String browser) throws IOException {
+  public ApplicationManager(String browser){
     this.browser = browser;
     properties = new Properties();
   }
