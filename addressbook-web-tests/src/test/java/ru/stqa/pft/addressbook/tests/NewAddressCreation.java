@@ -24,36 +24,40 @@ public class NewAddressCreation extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
-    String json = "";
-    String line = reader.readLine();
-    while (line!=null){
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+      String json = "";
+      String line = reader.readLine();
+      while (line != null) {
       /*String[] split = line.split(";");
       list.add(new Object[]{new AddressData().withFirstname(split[0]).withLastname(split[1]).withAddress(split[2]).withHomePhone(split[3])
               .withMobile(split[4]).withWorkPhone(split[5]).withEmail(split[6])});*/
-      json += line;
-      line=reader.readLine();
+        json += line;
+        line = reader.readLine();
+      }
+      Gson gson = new Gson();
+      List<AddressData> contacts = gson.fromJson(json, new TypeToken<List<AddressData>>() {
+      }.getType());
+      return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
-    Gson gson = new Gson();
-    List<AddressData> contacts = gson.fromJson(json, new TypeToken<List<AddressData>>(){}.getType());
-    return contacts.stream().map((g)-> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
+
   @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
-    String xml = "";
-    String line = reader.readLine();
-    while (line!=null){
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
+      String xml = "";
+      String line = reader.readLine();
+      while (line != null) {
       /*String[] split = line.split(";");
       list.add(new Object[]{new AddressData().withFirstname(split[0]).withLastname(split[1]).withAddress(split[2]).withHomePhone(split[3])
               .withMobile(split[4]).withWorkPhone(split[5]).withEmail(split[6])});*/
-      xml += line;
-      line=reader.readLine();
+        xml += line;
+        line = reader.readLine();
+      }
+      XStream xstream = new XStream();
+      xstream.processAnnotations(AddressData.class);
+      List<AddressData> contacts = (List<AddressData>) xstream.fromXML(xml);
+      return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
-    XStream xstream = new XStream();
-    xstream.processAnnotations(AddressData.class);
-    List<AddressData> contacts = (List<AddressData>) xstream.fromXML(xml);
-    return contacts.stream().map((g)-> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
     @Test (dataProvider = "validContactsFromJson")//(enabled = false)
@@ -61,9 +65,6 @@ public class NewAddressCreation extends TestBase {
         app.goTo().homePage();
         Contacts before = app.contact().all();
         File photo = new File("src/test/resources/manchkin.png");
-        /*AddressData address = new AddressData()
-                .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-                .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo);*/
         app.contact().create(address);
         assertThat(app.contact().count(), equalTo(before.size()+1));
         Contacts after = app.contact().all();
