@@ -50,9 +50,6 @@ public class DeleteContactFromAGroup extends TestBase  {
     Contacts afterContacts = app.db().groupsByUniqID(group).getContacts();
     assertThat(after, equalTo(before.without(group)));
     assertThat(afterContacts, equalTo(beforeContacts.without(contact)));
-    System.out.println("group is " + group.getName());
-    System.out.println("before: " + before.size() + "; After : " + after.size());
-    System.out.println("beforeContacts: " + beforeContacts.size() + "; AfterContacts : " + afterContacts.size());
   }
 
 }
