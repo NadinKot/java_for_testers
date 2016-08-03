@@ -47,7 +47,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("email2"),addressData.getEmail2());
     type(By.name("email3"),addressData.getEmail3());
     type(By.name("address2"),addressData.getSecondAddress());
-    attache(By.name("photo"),addressData.getPhoto());
+    //attache(By.name("photo"),addressData.getPhoto());
     }
 
   public void selectAddressById(int id) {

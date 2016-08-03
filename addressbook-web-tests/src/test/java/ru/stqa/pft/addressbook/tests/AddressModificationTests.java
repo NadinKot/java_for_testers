@@ -15,8 +15,9 @@ public class AddressModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
-    app.goTo().homePage();
-    if (app.contact().all().size()==0){
+
+    if (app.db().contacts().size()==0){
+      app.goTo().homePage();
       app.contact().create(new AddressData()
               .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
               .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
@@ -25,14 +26,15 @@ public class AddressModificationTests extends TestBase {
 
   @Test //(enabled = false)
   public void testAddressModification() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts(); //app.contact().all();
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData()
             .withId(modifiedAddress.getId()).withLastname("SecondName").withFirstname("MyName").withNickname("Nick").withAddress("MyAddress").withHomePhone("111")
             .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withSecondAddress("test_second_address");
+    app.goTo().homePage();
     app.contact().modify(address);
     assertThat(app.contact().count(), equalTo(before.size()));
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts(); //app.contact().all();
     assertThat(after, equalTo(before.without(modifiedAddress).withAdded(address)));
   }
 
