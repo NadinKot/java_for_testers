@@ -20,7 +20,7 @@ public class AddressModificationTests extends TestBase {
       app.goTo().homePage();
       app.contact().create(new AddressData()
               .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
+              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz"));//.withGroup("test1")
     }
   }
 
@@ -30,7 +30,7 @@ public class AddressModificationTests extends TestBase {
     AddressData modifiedAddress = before.iterator().next();
     AddressData address = new AddressData()
             .withId(modifiedAddress.getId()).withLastname("SecondName").withFirstname("MyName").withNickname("Nick").withAddress("MyAddress").withHomePhone("111")
-            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withSecondAddress("test_second_address");
+            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withSecondAddress("test_second_address");//.withGroup("test1")
     app.goTo().homePage();
     app.contact().modify(address);
     assertThat(app.contact().count(), equalTo(before.size()));

@@ -41,11 +41,15 @@ public class HbConnectionTest {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<AddressData> result = session.createQuery( "from AddressData where deprecated='0000-00-00'" ).list(); //OQL - object query language
-    for ( AddressData contact : result ) {
-      System.out.println(contact);
-    }
+
     session.getTransaction().commit();
     session.close();
+
+    for ( AddressData contact : result ) {
+      System.out.println(contact);
+      System.out.println(contact.getGroups());
+
+    }
 
   }
 }

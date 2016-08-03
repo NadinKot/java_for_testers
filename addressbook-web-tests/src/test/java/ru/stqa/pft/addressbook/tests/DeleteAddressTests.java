@@ -19,7 +19,7 @@ public class DeleteAddressTests extends TestBase {
       app.goTo().homePage();
       app.contact().create(new AddressData()
               .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1"));
+              .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz"));//.withGroup("test1")
     }
   }
 

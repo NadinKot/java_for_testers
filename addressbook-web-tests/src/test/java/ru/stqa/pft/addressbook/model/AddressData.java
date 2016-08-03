@@ -56,10 +56,6 @@ public class AddressData {
   @Type(type="text")
   private String email3;
   @Expose
-  //@Column(name="group")
-  @Transient
-  private String group;
-  @Expose
   @Column(name="address2")
   @Type(type="text")
   private String secondAddress;
@@ -74,7 +70,9 @@ public class AddressData {
   @Type(type="text")
   private String photo;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name="address_in_groups",
+          joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name ="group_id"))
   private Set<GroupData> groups = new HashSet<GroupData>();
 
 
@@ -148,11 +146,6 @@ public class AddressData {
     return this;
   }
 
-  public AddressData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public AddressData withSecondAddress(String secondAddress) {
     this.secondAddress = secondAddress;
     return this;
@@ -210,10 +203,6 @@ public class AddressData {
     return secondAddress;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public String getAllEmails() {
     return allEmails;
   }
@@ -230,6 +219,9 @@ public class AddressData {
     return new File(photo);
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
 
   @Override
   public String toString() {
