@@ -251,4 +251,9 @@ public class AddressData {
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     return result;
   }
+
+  public AddressData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

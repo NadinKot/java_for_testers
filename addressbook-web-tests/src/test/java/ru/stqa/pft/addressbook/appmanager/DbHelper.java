@@ -45,5 +45,22 @@ public class DbHelper {
     return new Contacts(result);
   }
 
+  public GroupData groupsByUniqID(GroupData group) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    GroupData result =(GroupData)session.createQuery("from GroupData where group_id=" + group.getId()).uniqueResult();
+    session.getTransaction().commit();
+    session.close();
+    return result;
+  }
 
+  public AddressData contactByUniqID(AddressData contact) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    AddressData result = (AddressData)session.createQuery("from AddressData where deprecated = '0000-00-00 00:00:00' and id = " + contact.getId()+"").uniqueResult();
+    System.out.println(result);
+    session.getTransaction().commit();
+    session.close();
+    return result;
+  }
 }

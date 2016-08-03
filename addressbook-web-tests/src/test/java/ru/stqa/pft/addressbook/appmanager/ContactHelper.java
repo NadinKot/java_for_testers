@@ -4,15 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.AddressData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Nadin_Kot on 06.06.2016.
@@ -51,19 +48,25 @@ public class ContactHelper extends HelperBase{
     }
 
   public void selectAddressById(int id) {
-    //wd.findElement(By.xpath(String.format("//input[@value=%s", id))).click();
     wd.findElement(By.xpath("//input[@value='"+id+"']")).click();
   }
 
   public void deleteAddress() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }
 
   public void initAddressModification(int id) {click(By.xpath("//input[@value='"+id+"']//..//../td[8]/a/img"));  }
-  //public void initAddressModification() {click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));  }
 
   public void openDetails(int id) {click(By.xpath("//input[@value='"+id+"']//..//../td[7]/a/img"));  }
 
   public void submitAddressModification() {
     click(By.name("update"));
+  }
+
+  public void chooseGroupForAdd(String name) {
+    new Select (wd.findElement(By.xpath("//select[@name='to_group']"))).selectByVisibleText(name);
+  }
+
+  public void chooseGroupForDelete(String name) {
+    new Select (wd.findElement(By.xpath("//form[@id='right']/select[@name='group']"))).selectByVisibleText(name);
   }
 
   public void create(AddressData address) {
@@ -72,7 +75,7 @@ public class ContactHelper extends HelperBase{
     fillAddressForm(address);
     /*fillAddressForm(new AddressData()
             .withLastname("SecondName").withFirstname("MyName").withAddress("MyAddress").withHomePhone("111")
-            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo),true);*/
+            .withMobile("123456").withWorkPhone("222").withEmail("myname.secondname@e-mail.zz").withGroup("test1").withPhoto(photo));*/
     submitAddressCreation();
     contactCache=null;
     returnToHomePage();
@@ -91,6 +94,18 @@ public class ContactHelper extends HelperBase{
     deleteAddress();
     contactCache=null;
     alert();
+  }
+
+  public void addToGroup(AddressData address, GroupData group) {
+    selectAddressById(address.getId());
+    chooseGroupForAdd(group.getName());
+    click(By.name("add"));
+  }
+
+  public void deleteFromGroup(AddressData address, GroupData group) {
+    chooseGroupForDelete(group.getName());
+    selectAddressById(address.getId());
+    click(By.name("remove"));
   }
 
   /*
