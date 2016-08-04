@@ -39,28 +39,30 @@ public class DbHelper {
   public Contacts contacts(){
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<AddressData> result = session.createQuery( "from AddressData where deprecated='0000-00-00'" ).list(); //OQL - object query language
+    List<AddressData> result = session.createQuery( "from AddressData where deprecated='0000-00-00 00:00:00'" ).list(); //OQL - object query language
     session.getTransaction().commit();
     session.close();
     return new Contacts(result);
   }
 
-  public GroupData groupsByUniqID(GroupData group) {
+  public GroupData groupsByUniqID(int uniqID) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    GroupData result =(GroupData)session.createQuery("from GroupData where group_id=" + group.getId()).uniqueResult();
+    GroupData result =(GroupData)session.createQuery("from GroupData where group_id=" + uniqID).uniqueResult();
     session.getTransaction().commit();
     session.close();
     return result;
   }
 
-  public AddressData contactByUniqID(AddressData contact) {
+  public AddressData contactByUniqID(int uniqID) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    AddressData result = (AddressData)session.createQuery("from AddressData where deprecated = '0000-00-00 00:00:00' and id = " + contact.getId()+"").uniqueResult();
+    AddressData result = (AddressData)session.createQuery("from AddressData where deprecated = '0000-00-00 00:00:00' and id = " +uniqID+"").uniqueResult();
     System.out.println(result);
     session.getTransaction().commit();
     session.close();
     return result;
   }
+
+
 }

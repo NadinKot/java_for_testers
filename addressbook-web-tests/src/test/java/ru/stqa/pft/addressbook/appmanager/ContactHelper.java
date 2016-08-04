@@ -48,7 +48,8 @@ public class ContactHelper extends HelperBase{
     }
 
   public void selectAddressById(int id) {
-    wd.findElement(By.xpath("//input[@value='"+id+"']")).click();
+    //wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    wd.findElement(By.xpath("//input[@id='"+id+"']")).click();
   }
 
   public void deleteAddress() {click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));  }

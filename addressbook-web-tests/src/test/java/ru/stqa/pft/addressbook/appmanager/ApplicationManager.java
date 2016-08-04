@@ -84,7 +84,7 @@ public class ApplicationManager {
   }
 
   public void delay() {
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
   }
   }
 
